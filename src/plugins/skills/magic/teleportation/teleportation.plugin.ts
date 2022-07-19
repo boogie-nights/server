@@ -5,7 +5,7 @@ import { Coords, Position } from "@engine/world/position";
 import { standardSpellBookAnimationId, standardSpellBookGraphicId, standardSpellBookSoundId, standardSpellBookWidgetButtonIds, standardSpellBookWidgetId } from "./teleportation-constants";
 import { Teleport } from "./teleportation-types";
 
-const canTeleport = (task: TaskExecutor<ButtonAction>): boolean => {
+const canTeleport = (task: TaskExecutor<ButtonAction>, taskIteration: number): boolean => {
     const { player, actionData } = task.getDetails();
     
     const teleportSpell = standardSpellBookWidgetButtonIds.get(actionData.buttonId);
@@ -14,30 +14,31 @@ const canTeleport = (task: TaskExecutor<ButtonAction>): boolean => {
 
     player.interfaceState.closeAllSlots();
 
-    if (player.interfaceState.findWidget(actionData.widgetId)) {
-        return false;
-    }
-
-    if (player.skills.getLevel(Skill.MAGIC) < teleportSpell.requiredLevel) {
-        player.sendMessage("You need a higher magic level to use this spell.");
-        return false;
-    }
-
-    let hasAllItems = true;
-    teleportSpell.requiredItems.forEach(item => {
-        let itemIndex = player.inventory.findItemIndex(item);
-        if (itemIndex === -1) {
-            hasAllItems = false;
+    if (taskIteration === 0) {
+        if (player.interfaceState.findWidget(actionData.widgetId)) {
+            return false;
         }
-    });
-
-    task.session.hasAllItems = hasAllItems;
-
-    if (!hasAllItems) {
-        player.sendMessage("You do not have the required items for this spell.");
-        return false;
+    
+        if (player.skills.getLevel(Skill.MAGIC) < teleportSpell.requiredLevel) {
+            player.sendMessage("You need a higher magic level to use this spell.");
+            return false;
+        }
+    
+        let hasAllItems = true;
+        teleportSpell.requiredItems.forEach(item => {
+            let itemIndex = player.inventory.findItemIndex(item);
+            if (itemIndex === -1) {
+                hasAllItems = false;
+            }
+        });
+    
+        task.session.hasAllItems = hasAllItems;
+    
+        if (!hasAllItems) {
+            player.sendMessage("You do not have the required items for this spell.");
+            return false;
+        }
     }
-
     return true;
 }
 
