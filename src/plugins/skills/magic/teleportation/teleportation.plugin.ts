@@ -1,5 +1,5 @@
 import { ButtonAction, ButtonActionHook, TaskExecutor } from "@engine/action";
-import { loopingEvent } from "@engine/plugins";
+import { randomBetween } from "@engine/util";
 import { Skill } from "@engine/world/actor";
 import { Coords, Position } from "@engine/world/position";
 import { standardSpellBookAnimationId, standardSpellBookGraphicId, standardSpellBookSoundId, standardSpellBookWidgetButtonIds, standardSpellBookWidgetId } from "./teleportation-constants";
@@ -31,6 +31,8 @@ const canTeleport = (task: TaskExecutor<ButtonAction>): boolean => {
         }
     });
 
+    task.session.hasAllItems = hasAllItems;
+
     if (!hasAllItems) {
         player.sendMessage("You do not have the required items for this spell.");
         return false;
@@ -43,6 +45,11 @@ const teleport = (task: TaskExecutor<ButtonAction>, taskIteration: number): bool
     const { player } = task.getDetails();
 
     const teleportSpell = task.session.teleportSpell;
+    const hasAllItems = task.session.hasAllItems;
+
+    if (!hasAllItems) {
+        return false;
+    }
 
     if (taskIteration === 0) {
         teleportSpell.requiredItems.forEach(item => {
@@ -57,20 +64,19 @@ const teleport = (task: TaskExecutor<ButtonAction>, taskIteration: number): bool
     if (taskIteration === 2) {
         player.teleport(new Position(determineTeleportLocation(teleportSpell)));
         task.actor.stopAnimation();
+        task.stop();
         return false;
     }
     return true;
 }
 
+
+// TODO: Needs to deal with multiple bounds arrays and check if it's a valid position.
 const determineTeleportLocation = (teleport: Teleport): Position => {
-    let randomX = randomCoord(teleport.boundary[0].startX, teleport.boundary[0].endX);
-    let randomY = randomCoord(teleport.boundary[0].startY, teleport.boundary[0].endY);
+    let randomX = randomBetween(teleport.boundary[0].startX, teleport.boundary[0].endX);
+    let randomY = randomBetween(teleport.boundary[0].startY, teleport.boundary[0].endY);
     return new Position(randomX, randomY, 0);
 } 
-
-const randomCoord = (min, max): number => {
-    return Math.floor(Math.random() * (max - min)) + min;
-}
 
 export default {
     pluginId: "rs:teleportation",
