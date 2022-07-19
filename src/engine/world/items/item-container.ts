@@ -246,6 +246,27 @@ export class ItemContainer {
 
     }
 
+    public removeMany = (itemId: number, amount: number) => {
+        let resultingAmount = 0;
+        let removeAmount = amount;
+    
+        while (removeAmount > 0 && this.has(itemId)) {
+            const containerIndex = this.findIndex(itemId);
+            const containerItem = this.items[containerIndex];
+    
+            if (removeAmount >= containerItem.amount) {
+                resultingAmount += containerItem.amount;
+                removeAmount -= containerItem.amount;
+                this.remove(containerIndex);
+            } else {
+                resultingAmount += removeAmount;
+                containerItem.amount -= removeAmount;
+                removeAmount = 0;
+            }
+        }
+        return resultingAmount;
+    }
+
     public getFirstOpenSlot(): number {
         return this._items.findIndex(item => !hasValueNotNull(item));
     }

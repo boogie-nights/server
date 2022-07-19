@@ -711,6 +711,11 @@ export class Player extends Actor {
         this.outgoingPackets.sendUpdateSingleWidgetItem(widgets.inventory, slot, null);
     }
 
+    public removeItems(slot: number, amount: number) {
+        this.inventory.removeMany(slot, amount);
+        this.outgoingPackets.sendUpdateAllWidgetItems(widgets.inventory, this.inventory);
+    }
+
     public giveItem(item: number | Item | string): boolean {
         const addedItem = this.inventory.add(item);
         if(addedItem === null) {
