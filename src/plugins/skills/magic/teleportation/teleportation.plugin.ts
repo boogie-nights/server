@@ -74,7 +74,7 @@ const teleport = (task: TaskExecutor<ButtonAction>, taskIteration: number): bool
 }
 
 
-// TODO: Needs to deal with multiple bounds arrays and check if it's a valid position.
+// TODO: check if it's a valid position.
 const determineTeleportLocation = (teleport: Teleport): Position => {
 
     let randomX, randomY, randomBoundaryIndex = 0;
