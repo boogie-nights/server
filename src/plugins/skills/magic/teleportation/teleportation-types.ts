@@ -5,7 +5,7 @@ export interface Teleport {
     requiredItems: Item[];
     experience: number;
     boundary: TeleportBoundary[];
-    questRequirement?: string;
+    questRequirement?: QuestRequirement;
 }
 
 export interface TeleportBoundary {
@@ -13,4 +13,10 @@ export interface TeleportBoundary {
     startY: number;
     endX: number;
     endY: number;
+    height?: number;
+}
+
+export interface QuestRequirement {
+    questId: string;
+    questName: string;
 }

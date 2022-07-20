@@ -1,7 +1,7 @@
 import { ButtonAction, ButtonActionHook, TaskExecutor } from "@engine/action";
 import { randomBetween } from "@engine/util";
-import { Skill } from "@engine/world/actor";
-import { Coords, Position } from "@engine/world/position";
+import { playerExists, Skill } from "@engine/world/actor";
+import { Position } from "@engine/world/position";
 import { standardSpellBookAnimationId, standardSpellBookGraphicId, standardSpellBookSoundId, standardSpellBookWidgetButtonIds, standardSpellBookWidgetId } from "./teleportation-constants";
 import { Teleport } from "./teleportation-types";
 
@@ -18,9 +18,10 @@ const canTeleport = (task: TaskExecutor<ButtonAction>, taskIteration: number): b
         if (player.interfaceState.findWidget(actionData.widgetId)) {
             return false;
         }
+
     
         if (player.skills.getLevel(Skill.MAGIC) < teleportSpell.requiredLevel) {
-            player.sendMessage("You need a higher magic level to use this spell.");
+            player.sendMessage("Your Magic level is not high enough for this spell.");
             return false;
         }
     
@@ -32,11 +33,17 @@ const canTeleport = (task: TaskExecutor<ButtonAction>, taskIteration: number): b
             }
         });
     
-        task.session.hasAllItems = hasAllItems;
-    
         if (!hasAllItems) {
             player.sendMessage("You do not have the required items for this spell.");
             return false;
+        }
+
+        if (teleportSpell.questRequirement) {
+            const requiredQuest = player.quests.find(quest => quest.questId === teleportSpell?.questRequirement.questId);
+            if (!requiredQuest?.complete) {
+                player.sendMessage(`You must have completed ${teleportSpell.questRequirement.questName} to use this spell.`);
+                return false;
+            }
         }
     }
     return true;
@@ -46,11 +53,6 @@ const teleport = (task: TaskExecutor<ButtonAction>, taskIteration: number): bool
     const { player } = task.getDetails();
 
     const teleportSpell = task.session.teleportSpell;
-    const hasAllItems = task.session.hasAllItems;
-
-    if (!hasAllItems) {
-        return false;
-    }
 
     if (taskIteration === 0) {
         teleportSpell.requiredItems.forEach(item => {
@@ -74,9 +76,20 @@ const teleport = (task: TaskExecutor<ButtonAction>, taskIteration: number): bool
 
 // TODO: Needs to deal with multiple bounds arrays and check if it's a valid position.
 const determineTeleportLocation = (teleport: Teleport): Position => {
-    let randomX = randomBetween(teleport.boundary[0].startX, teleport.boundary[0].endX);
-    let randomY = randomBetween(teleport.boundary[0].startY, teleport.boundary[0].endY);
-    return new Position(randomX, randomY, 0);
+
+    let randomX, randomY, randomBoundaryIndex = 0;
+    if (teleport.boundary.length === 1) {
+        randomX = randomBetween(teleport.boundary[0].startX, teleport.boundary[0].endX);
+        randomY = randomBetween(teleport.boundary[0].startY, teleport.boundary[0].endY);
+    } else {
+        let randomBoundaryIndex = randomBetween(0, teleport.boundary.length - 1) ;
+        randomX = randomBetween(teleport.boundary[randomBoundaryIndex].startX, teleport.boundary[randomBoundaryIndex].endX);
+        randomY = randomBetween(teleport.boundary[randomBoundaryIndex].startY, teleport.boundary[randomBoundaryIndex].endY);
+    }
+
+    let height = teleport.boundary[randomBoundaryIndex]?.height ? teleport.boundary[randomBoundaryIndex].height : 0;
+
+    return new Position(randomX, randomY, height);
 } 
 
 export default {
