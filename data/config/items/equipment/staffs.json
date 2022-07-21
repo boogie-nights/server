@@ -192,5 +192,293 @@
                 "strength": 6
             }
         }
+    },
+    "rs:fire_battlestaff": {
+        "extends": "rs:staff_base",
+        "game_id": 1393,
+        "examine": "It's a slightly magical stick.",
+        "weight": 2.267,
+        "equipment_data": {
+            "offensive_bonuses": {
+                "speed": 5,
+                "stab": 7,
+                "slash": -1,
+                "crush": 28,
+                "magic": 12
+            },
+            "defensive_bonuses": {
+                "stab": 2,
+                "slash": 3,
+                "crush": 1,
+                "magic": 12
+            },
+            "skill_bonuses": {
+                "strength": 35
+            }
+        }
+    },
+    "rs:earth_battlestaff": {
+        "extends": "rs:staff_base",
+        "game_id": 1399,
+        "examine": "It's a slightly magical stick.",
+        "weight": 2.267,
+        "equipment_data": {
+            "offensive_bonuses": {
+                "speed": 5,
+                "stab": 7,
+                "slash": -1,
+                "crush": 28,
+                "magic": 12
+            },
+            "defensive_bonuses": {
+                "stab": 2,
+                "slash": 3,
+                "crush": 1,
+                "magic": 12
+            },
+            "skill_bonuses": {
+                "strength": 35
+            }
+        }
+    },
+    "rs:water_battlestaff": {
+        "extends": "rs:staff_base",
+        "game_id": 1395,
+        "examine": "It's a slightly magical stick.",
+        "weight": 2.267,
+        "equipment_data": {
+            "offensive_bonuses": {
+                "speed": 5,
+                "stab": 7,
+                "slash": -1,
+                "crush": 28,
+                "magic": 12
+            },
+            "defensive_bonuses": {
+                "stab": 2,
+                "slash": 3,
+                "crush": 1,
+                "magic": 12
+            },
+            "skill_bonuses": {
+                "strength": 35
+            }
+        }
+    },
+    "rs:air_battlestaff": {
+        "extends": "rs:staff_base",
+        "game_id": 1397,
+        "examine": "It's a slightly magical stick.",
+        "weight": 2.267,
+        "equipment_data": {
+            "offensive_bonuses": {
+                "speed": 5,
+                "stab": 7,
+                "slash": -1,
+                "crush": 28,
+                "magic": 12
+            },
+            "defensive_bonuses": {
+                "stab": 2,
+                "slash": 3,
+                "crush": 1,
+                "magic": 12
+            },
+            "skill_bonuses": {
+                "strength": 35
+            }
+        }
+    },
+    "rs:mud_battlestaff": {
+        "extends": "rs:staff_base",
+        "game_id": 6562,
+        "examine": "It's a slightly magical stick.",
+        "weight": 2.267,
+        "equipment_data": {
+            "offensive_bonuses": {
+                "speed": 5,
+                "stab": 7,
+                "slash": -1,
+                "crush": 28,
+                "magic": 12
+            },
+            "defensive_bonuses": {
+                "stab": 2,
+                "slash": 3,
+                "crush": 1,
+                "magic": 12
+            },
+            "skill_bonuses": {
+                "strength": 35
+            }
+        }
+    },
+    "rs:lava_battlestaff": {
+        "extends": "rs:staff_base",
+        "game_id": 3053,
+        "examine": "It's a slightly magical stick.",
+        "weight": 2.267,
+        "equipment_data": {
+            "offensive_bonuses": {
+                "speed": 5,
+                "stab": 7,
+                "slash": -1,
+                "crush": 28,
+                "magic": 12
+            },
+            "defensive_bonuses": {
+                "stab": 2,
+                "slash": 3,
+                "crush": 1,
+                "magic": 12
+            },
+            "skill_bonuses": {
+                "strength": 35
+            }
+        }
+    },
+    "rs:mystic_fire_staff": {
+        "extends": "rs:staff_base",
+        "game_id": 1401,
+        "examine": "It's a slightly magical stick.",
+        "weight": 2.267,
+        "equipment_data": {
+            "offensive_bonuses": {
+                "speed": 5,
+                "stab": 10,
+                "slash": -1,
+                "crush": 40,
+                "magic": 14
+            },
+            "defensive_bonuses": {
+                "stab": 2,
+                "slash": 3,
+                "crush": 1,
+                "magic": 14
+            },
+            "skill_bonuses": {
+                "strength": 50
+            }
+        }
+    },
+    "rs:mystic_earth_staff": {
+        "extends": "rs:staff_base",
+        "game_id": 1407,
+        "examine": "It's a slightly magical stick.",
+        "weight": 2.267,
+        "equipment_data": {
+            "offensive_bonuses": {
+                "speed": 5,
+                "stab": 10,
+                "slash": -1,
+                "crush": 40,
+                "magic": 14
+            },
+            "defensive_bonuses": {
+                "stab": 2,
+                "slash": 3,
+                "crush": 1,
+                "magic": 14
+            },
+            "skill_bonuses": {
+                "strength": 50
+            }
+        }
+    },
+    "rs:mystic_water_staff": {
+        "extends": "rs:staff_base",
+        "game_id": 1403,
+        "examine": "It's a slightly magical stick.",
+        "weight": 2.267,
+        "equipment_data": {
+            "offensive_bonuses": {
+                "speed": 5,
+                "stab": 10,
+                "slash": -1,
+                "crush": 40,
+                "magic": 14
+            },
+            "defensive_bonuses": {
+                "stab": 2,
+                "slash": 3,
+                "crush": 1,
+                "magic": 14
+            },
+            "skill_bonuses": {
+                "strength": 50
+            }
+        }
+    },
+    "rs:mystic_air_staff": {
+        "extends": "rs:staff_base",
+        "game_id": 1405,
+        "examine": "It's a slightly magical stick.",
+        "weight": 2.267,
+        "equipment_data": {
+            "offensive_bonuses": {
+                "speed": 5,
+                "stab": 10,
+                "slash": -1,
+                "crush": 40,
+                "magic": 14
+            },
+            "defensive_bonuses": {
+                "stab": 2,
+                "slash": 3,
+                "crush": 1,
+                "magic": 14
+            },
+            "skill_bonuses": {
+                "strength": 50
+            }
+        }
+    },
+    "rs:mystic_mud_staff": {
+        "extends": "rs:staff_base",
+        "game_id": 6563,
+        "examine": "It's a slightly magical stick.",
+        "weight": 2.267,
+        "equipment_data": {
+            "offensive_bonuses": {
+                "speed": 5,
+                "stab": 10,
+                "slash": -1,
+                "crush": 40,
+                "magic": 14
+            },
+            "defensive_bonuses": {
+                "stab": 2,
+                "slash": 3,
+                "crush": 1,
+                "magic": 14
+            },
+            "skill_bonuses": {
+                "strength": 50
+            }
+        }
+    },
+    "rs:mystic_lava_staff": {
+        "extends": "rs:staff_base",
+        "game_id": 3054,
+        "examine": "It's a slightly magical stick.",
+        "weight": 2.267,
+        "equipment_data": {
+            "offensive_bonuses": {
+                "speed": 5,
+                "stab": 10,
+                "slash": -1,
+                "crush": 40,
+                "magic": 14
+            },
+            "defensive_bonuses": {
+                "stab": 2,
+                "slash": 3,
+                "crush": 1,
+                "magic": 14
+            },
+            "skill_bonuses": {
+                "strength": 50
+            }
+        }
     }
 }

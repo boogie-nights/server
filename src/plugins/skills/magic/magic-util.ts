@@ -56,9 +56,9 @@ export const hasRunes = (player: Player, requiredItems: Item[], staffType: Staff
 export const removeRunes = (player: Player, requiredItems: Item[], staffType: StaffType): void => {
     requiredItems.forEach(item => {
         const staffToRunes: number[] = stavesToRunes.get(staffType);
-        let shouldRemoveRune = staffToRunes.some(rune => rune !== item.itemId);
+        let shouldKeepRune = staffToRunes.some(rune => rune === item.itemId);
 
-        if (shouldRemoveRune) {
+        if (!shouldKeepRune) {
             player.removeItems(item.itemId, item.amount);
         }
     });
