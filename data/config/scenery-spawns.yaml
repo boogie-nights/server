@@ -72,3 +72,27 @@
   type: 10
   orientation: 1
   # End lumby castle roof bank construction objects
+- objectId: 2150
+  x: 3221
+  'y': 3224
+  level: 0
+  type: 10
+  orientation: 1
+- objectId: 2151
+  x: 3221
+  'y': 3222
+  level: 0
+  type: 10
+  orientation: 1
+- objectId: 2152
+  x: 3221
+  'y': 3219
+  level: 0
+  type: 10
+  orientation: 1
+- objectId: 2153
+  x: 3221
+  'y': 3216
+  level: 0
+  type: 10
+  orientation: 1

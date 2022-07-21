@@ -1,9 +1,4 @@
-import { Teleport } from "./teleportation-types";
-
-export const standardSpellBookWidgetId = 192;
-export const standardSpellBookGraphicId = 111;
-export const standardSpellBookAnimationId = 714;
-export const standardSpellBookSoundId = 200;
+import { SpellBook, Teleport } from "./teleportation-types";
 
 const VARROCK: Teleport = {
     requiredLevel: 25,
@@ -171,13 +166,19 @@ const APE_ATOLL: Teleport = {
 }
 
 
-export const standardSpellBookWidgetButtonIds : Map<number, Teleport> = new Map<number, Teleport>([
-    [12, VARROCK],
-    [15, LUMBRIDGE],
-    [18, FALADOR],
-    [22, CAMELOT],
-    [388, ARDOUGNE],
-    [389, WATCHTOWER],
-    [492, TROLLHEIM],
-    [569, APE_ATOLL]
-]) ;
+export const MODERN_SPELLBOOK : SpellBook = {
+    widgetId: 192,
+    teleportGraphicId: 111,
+    teleportAnimationId: 714,
+    teleportSoundEffectId: 200,
+    teleportButtonIds: new Map<number, Teleport>([
+        [12, VARROCK],
+        [15, LUMBRIDGE],
+        [18, FALADOR],
+        [22, CAMELOT],
+        [388, ARDOUGNE],
+        [389, WATCHTOWER],
+        [492, TROLLHEIM],
+        [569, APE_ATOLL]
+    ])
+}

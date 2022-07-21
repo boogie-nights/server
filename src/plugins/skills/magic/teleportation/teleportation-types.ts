@@ -20,3 +20,11 @@ export interface QuestRequirement {
     questId: string;
     questName: string;
 }
+
+export interface SpellBook {
+    widgetId: number;
+    teleportGraphicId: number;
+    teleportAnimationId: number;
+    teleportSoundEffectId: number;
+    teleportButtonIds: Map<number, Teleport>;
+}
