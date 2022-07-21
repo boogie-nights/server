@@ -1,3 +1,4 @@
+import { Graphic } from "@engine/world/actor";
 import { Item } from "@engine/world/items/item";
 
 export interface Teleport {
@@ -23,7 +24,7 @@ export interface QuestRequirement {
 
 export interface SpellBook {
     widgetId: number;
-    teleportGraphicId: number;
+    teleportGraphicId: number | Graphic;
     teleportAnimationId: number;
     teleportSoundEffectId: number;
     teleportButtonIds: Map<number, Teleport>;

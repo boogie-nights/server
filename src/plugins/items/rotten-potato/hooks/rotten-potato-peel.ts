@@ -1,5 +1,5 @@
 import { itemInteractionActionHandler } from '@engine/action/pipe/item-interaction.action';
-import { Player } from '@engine/world/actor/player/player';
+import { Player, SidebarTab } from '@engine/world/actor/player/player';
 import { dialogue, execute } from '@engine/world/actor/dialogue';
 import { getActionHooks } from '@engine/action/hook';
 import { advancedNumberHookFilter } from '@engine/action/hook/hook-filters';
@@ -29,11 +29,19 @@ function openBank(player: Player) {
         }));
 }
 
+function swapSpellBook(player: Player, spellbookId: number): void {
+    player.setSidebarWidget(SidebarTab.MAGIC, spellbookId);
+    player.outgoingPackets.blinkTabIcon(6);
+}
+
 enum DialogueOption {
     BANK,
     TELEPORT_MENU,
     TELEPORT_TO_RARE_DROP,
-    FORCE_RARE_DROP
+    FORCE_RARE_DROP,
+    SWAP_SPELLBOOK_MODERN,
+    SWAP_SPELLBOOK_ANCIENT,
+    SWAP_SPELLBOOK_LUNAR
 }
 
 const peelPotato: itemInteractionActionHandler = async (details) => {
@@ -47,6 +55,15 @@ const peelPotato: itemInteractionActionHandler = async (details) => {
             ],
             `Travel Far!`, [
                 execute(() => chosenOption = DialogueOption.TELEPORT_MENU)
+            ],
+            `Modern Magic`, [
+                execute(() => chosenOption = DialogueOption.SWAP_SPELLBOOK_MODERN)
+            ],
+            `Ancient Magic`, [
+                execute(() => chosenOption = DialogueOption.SWAP_SPELLBOOK_ANCIENT)
+            ],
+            `Lunar Magic`, [
+                execute(() => chosenOption = DialogueOption.SWAP_SPELLBOOK_LUNAR)
             ],
             // `Teleport to RARE!`, [
             //     execute(() => chosenOption = DialogueOption.TELEPORT_TO_RARE_DROP)
@@ -62,6 +79,15 @@ const peelPotato: itemInteractionActionHandler = async (details) => {
             break;
         case DialogueOption.TELEPORT_MENU:
             openTravel(details.player, 1);
+            break;
+        case DialogueOption.SWAP_SPELLBOOK_MODERN:
+            swapSpellBook(details.player, 192);
+            break;
+        case DialogueOption.SWAP_SPELLBOOK_ANCIENT:
+            swapSpellBook(details.player, 193);
+            break;
+        case DialogueOption.SWAP_SPELLBOOK_LUNAR:
+            swapSpellBook(details.player, 430);
             break;
         default:
             break;

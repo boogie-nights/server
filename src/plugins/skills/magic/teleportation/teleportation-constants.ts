@@ -165,6 +165,23 @@ const APE_ATOLL: Teleport = {
     }
 }
 
+// Ancient Magics
+const PADDEWWA: Teleport = {
+    requiredLevel: 45,
+    requiredItems: [
+        { itemId: 556, amount: 5},
+        { itemId: 563, amount: 1}
+    ],
+    experience: 55.5,
+    boundary: [
+        {
+            startX: 2755, 
+            startY: 3476,
+            endX: 2759,
+            endY: 3480
+        }
+    ]
+}
 
 export const MODERN_SPELLBOOK : SpellBook = {
     widgetId: 192,
@@ -180,5 +197,27 @@ export const MODERN_SPELLBOOK : SpellBook = {
         [389, WATCHTOWER],
         [492, TROLLHEIM],
         [569, APE_ATOLL]
+    ])
+}
+
+export const ANCIENT_SPELLBOOK : SpellBook = {
+    widgetId: 193,
+    teleportGraphicId: {
+        id: 392,
+        height: 0,
+    },
+    teleportAnimationId: 1979,
+    teleportSoundEffectId: 200,
+    teleportButtonIds: new Map<number, Teleport>([
+        [179, PADDEWWA],
+    ])
+}
+
+export const LUNAR_SPELLBOOK : SpellBook = {
+    widgetId: 193,
+    teleportGraphicId: 392,
+    teleportAnimationId: 1979,
+    teleportSoundEffectId: 200,
+    teleportButtonIds: new Map<number, Teleport>([
     ])
 }
