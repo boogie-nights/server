@@ -6,8 +6,6 @@ import { checkForStaff, hasRunes, removeRunes } from "../magic-util";
 import { ANCIENT_SPELLBOOK, LUNAR_SPELLBOOK, MODERN_SPELLBOOK } from "./teleportation-constants";
 import { SpellBook, Teleport } from "./teleportation-types";
 
-let teleportSpellArray: number[]
-
 const canTeleport = (task: TaskExecutor<ButtonAction>, taskIteration: number): boolean => {
     const { player, actionData } = task.getDetails();
     
@@ -51,8 +49,8 @@ const canTeleport = (task: TaskExecutor<ButtonAction>, taskIteration: number): b
 const teleport = (task: TaskExecutor<ButtonAction>, taskIteration: number): boolean => {
     const { player } = task.getDetails();
 
-    const spellBook = task.session.spellBook;
-    const teleportSpell = task.session.teleportSpell;
+    const spellBook: SpellBook = task.session.spellBook;
+    const teleportSpell: Teleport = task.session.teleportSpell;
     const staffType = task.session.staffType;
 
     if (taskIteration === 0) {
