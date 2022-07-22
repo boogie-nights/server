@@ -67,12 +67,11 @@ export const removeRunes = (player: Player, requiredItems: Item[], staffType: St
 export const checkForStaff = (player: Player): StaffType => {
 
     const equipmentSlotItem = player.getEquippedItem("main_hand");
+    let finalStaffType = StaffType.None;
 
     if (!equipmentSlotItem) {
-        return StaffType.None;
+        return finalStaffType;
     }
-
-    let finalStaffType = StaffType.None;
 
     finalStaffType = calculateStaffType(equipmentSlotItem, airStaves, finalStaffType, StaffType.Air);
     finalStaffType = calculateStaffType(equipmentSlotItem, waterStaves, finalStaffType, StaffType.Water);

@@ -3,8 +3,10 @@ import { randomBetween } from "@engine/util";
 import { Skill } from "@engine/world/actor";
 import { Position } from "@engine/world/position";
 import { checkForStaff, hasRunes, removeRunes } from "../magic-util";
-import { ANCIENT_SPELLBOOK, MODERN_SPELLBOOK } from "./teleportation-constants";
+import { ANCIENT_SPELLBOOK, LUNAR_SPELLBOOK, MODERN_SPELLBOOK } from "./teleportation-constants";
 import { SpellBook, Teleport } from "./teleportation-types";
+
+let teleportSpellArray: number[]
 
 const canTeleport = (task: TaskExecutor<ButtonAction>, taskIteration: number): boolean => {
     const { player, actionData } = task.getDetails();
@@ -76,6 +78,8 @@ const determineSpellBook = (widgetId: number): SpellBook => {
             return MODERN_SPELLBOOK;
         case 193:
             return ANCIENT_SPELLBOOK;
+        case 430:
+            return LUNAR_SPELLBOOK;
     }
 }
 
@@ -102,10 +106,15 @@ export default {
     hooks: [
         {
             type: "button",
-            widgetIds: [ MODERN_SPELLBOOK.widgetId, ANCIENT_SPELLBOOK.widgetId ],
+            widgetIds: [ 
+                MODERN_SPELLBOOK.widgetId, 
+                ANCIENT_SPELLBOOK.widgetId, 
+                LUNAR_SPELLBOOK.widgetId 
+            ],
             buttonIds: Array.prototype.concat.apply([], [
                 Array.from(MODERN_SPELLBOOK.teleportButtonIds.keys()), 
-                Array.from(ANCIENT_SPELLBOOK.teleportButtonIds.keys())
+                Array.from(ANCIENT_SPELLBOOK.teleportButtonIds.keys()),
+                Array.from(LUNAR_SPELLBOOK.teleportButtonIds.keys())
             ]),
             task: {
                 canActivate: canTeleport,
