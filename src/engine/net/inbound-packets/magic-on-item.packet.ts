@@ -3,22 +3,27 @@ import { PacketData } from '@engine/net';
 
 const magicOnItemPacket = (player: Player, packet: PacketData) => {
     const { buffer } = packet;
-    const interfaceSet = buffer.get('int', 'u', 'le');
-    const toSlot = buffer.get('int', 'u', 'me2');
+    const interfaceSet = buffer.get('int', 'u', 'le');  // This contains the Player's Magic interface and spell Id
+    const interfaceSet2 = buffer.get('int', 'u', 'le'); // This only contains the Player's Inventory Interface
     const itemId = buffer.get('short', 'u', 'be');
     const itemSlot = buffer.get('short', 'u', 'be');
 
-    const interfaceId = interfaceSet >> 16;
-    const idk = interfaceSet >> 16;
+    const spellbookWidgetId = interfaceSet >> 16;
+    const inventoryWidgetId = interfaceSet2 >> 16;
 
-    console.log("magic on item packet ", interfaceSet, interfaceId, idk, toSlot, itemId, itemSlot);
-    for (var i = 0; i < 32; i++)
-        console.log((interfaceSet | interfaceId) >> i);
+    const spellId = interfaceSet & 0x0000FFFF;
 
+    player.sendMessage("Magic On Item " + spellbookWidgetId + " " + spellId + " " + inventoryWidgetId  + " " + itemId + " " + itemSlot);
 
-    // if(toSlot < 0 || fromSlot < 0) {
-    //     return;
-    // }
+    if(itemSlot < 0) {
+        return;
+    }
+
+    if (!player.inventory.has(itemId)) {
+        return;
+    }
+
+    player.actionPipeline.call('magic_on_item', player, itemId, spellbookWidgetId, spellId,);
 
     // if(swapType === 0) {
     //     player.actionPipeline.call('item_swap', player, fromSlot, toSlot, { widgetId, containerId })

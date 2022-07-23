@@ -28,6 +28,7 @@ enum StaffType {
 }
 
 const stavesToRunes = new Map<StaffType, number[]>([
+    [StaffType.None, []],
     [StaffType.Air, [556]],
     [StaffType.Water, [555]],
     [StaffType.Earth, [557]],
