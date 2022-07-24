@@ -7,6 +7,7 @@ export * from './item-on-object.action';
 export * from './item-on-player.action';
 export * from './item-swap.action';
 export * from './magic-on-npc.action';
+export * from './magic-on-item.action';
 export * from './move-item.action';
 export * from './npc-init.action';
 export * from './npc-interaction.action';
