@@ -467,6 +467,12 @@ export class OutboundPacketHandler {
         this.queue(packet);
     }
 
+    public sendSwitchTab(tabIndex: number) : void {
+        const packet = new Packet(6);
+        packet.put(tabIndex);
+        this.queue(packet);
+    }
+
     public showFullscreenWidget(widgetId: number, secondaryWidgetId: number): void {
         const packet = new Packet(195);
         packet.put(secondaryWidgetId, 'SHORT');

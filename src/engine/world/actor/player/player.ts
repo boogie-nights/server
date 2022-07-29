@@ -1103,7 +1103,13 @@ export class Player extends Actor {
             this.outgoingPackets.sendUpdateAllWidgetItems(widgets.inventory, this.inventory);
         } else if(event.type === 'ADD') {
             this.outgoingPackets.sendUpdateSingleWidgetItem(widgets.inventory, event.slot, event.item);
-        }
+        } else if(event.type === 'REMOVE') {
+            this.outgoingPackets.sendUpdateAllWidgetItems(widgets.inventory, this.inventory);
+        } else if (event.type === 'UPDATE_AMOUNT') {
+            this.outgoingPackets.sendUpdateAllWidgetItems(widgets.inventory, this.inventory);
+        } else if (event.type === 'SET') {
+            this.outgoingPackets.sendUpdateSingleWidgetItem(widgets.inventory, event.slot, event.item);
+        } 
         this.updateCarryWeight();
     }
 

@@ -5,7 +5,7 @@
 
 import { TaskExecutor } from "@engine/action/hook/task";
 import { MagicOnItemAction, MagicOnItemActionHook } from "@engine/action/pipe/magic-on-item.action";
-import { findItem } from "@engine/config/config-handler";
+import { findItem, widgets } from "@engine/config/config-handler";
 import { ItemDetails } from "@engine/config/item-config";
 import { Skill } from "@engine/world/actor/skills";
 import { Item } from "@engine/world/items/item";
@@ -114,27 +114,24 @@ const activate = (task: TaskExecutor<MagicOnItemAction>, taskIteration: number):
         player.playAnimation(spell.animationId);
         player.playGraphics({ id: spell.graphicId, height: 90 });
         player.playSound(spell.soundEffectId);
-    }
 
-    if (taskIteration === 1) {
+        player.outgoingPackets.sendSwitchTab(6);
 
         let item = findItem(actionData.item);
-        player.removeItems(actionData.item, 1);
+        player.inventory.removeMany(actionData.item, 1);
 
-        player.sendMessage("" + actionData.item);
+        let amountOfCoins = spell === LOW_LEVEL_ALCHEMY ? item.lowAlchValue : item.highAlchValue;
+        player.inventory.add({itemId: 995, amount: amountOfCoins});
+    }
 
-        let coinsIndex = player.hasCoins(1);
-        player.sendMessage("Coins Index: " + coinsIndex);
-        let amountOfCoins = LOW_LEVEL_ALCHEMY ? item.lowAlchValue : item.highAlchValue;
-        player.sendMessage("Item Id: " + item.gameId + " " + item.lowAlchValue);
-        if(coinsIndex === -1) {
-            coinsIndex = player.inventory.getFirstOpenSlot();
-            player.inventory.set(coinsIndex, { itemId: 995, amount: amountOfCoins });
-        } else {
-            player.inventory.items[coinsIndex].amount += amountOfCoins;
-        }
+    if (taskIteration === 3 && spell === LOW_LEVEL_ALCHEMY) {
         return false;
     }
+
+    if (taskIteration === 5) {
+        return false;
+    }
+
     return true;
 }
 

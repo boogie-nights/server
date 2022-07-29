@@ -246,12 +246,14 @@ export class ItemContainer {
 
     }
 
-    public removeMany = (itemId: number, amount: number) => {
+    public removeMany = (itemId: number, amount: number, fireEvent: boolean = true) => {
         let resultingAmount = 0;
         let removeAmount = amount;
+
+        let containerIndex: number;
     
         while (removeAmount > 0 && this.has(itemId)) {
-            const containerIndex = this.findIndex(itemId);
+            containerIndex = this.findIndex(itemId);
             const containerItem = this.items[containerIndex];
     
             if (removeAmount >= containerItem.amount) {
@@ -263,6 +265,9 @@ export class ItemContainer {
                 containerItem.amount -= removeAmount;
                 removeAmount = 0;
             }
+        }
+        if(fireEvent) {
+            this._containerUpdated.next({ type: 'REMOVE', slot: containerIndex });
         }
         return resultingAmount;
     }

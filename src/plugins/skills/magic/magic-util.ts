@@ -60,7 +60,7 @@ export const removeRunes = (player: Player, requiredItems: Item[], staffType: St
         let shouldKeepRune = staffToRunes.some(rune => rune === item.itemId);
 
         if (!shouldKeepRune) {
-            player.removeItems(item.itemId, item.amount);
+            player.inventory.removeMany(item.itemId, item.amount);
         }
     });
 }
