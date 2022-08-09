@@ -10,6 +10,7 @@ import { ItemDetails } from "@engine/config/item-config";
 import { Skill } from "@engine/world/actor/skills";
 import { Item } from "@engine/world/items/item";
 import { action } from "@plugins/dialogue/dialogue-option.plugin";
+import _ from "lodash";
 import { checkForStaff, hasRunes, removeRunes } from "../magic-util";
 
 // Low level alchemy info
@@ -27,9 +28,6 @@ interface AlchemySpell {
     animationId: number;
     soundEffectId: number;
 }
-
-const BANANA = 1963;
-const PEACH = 6883;
 
 const LOW_LEVEL_ALCHEMY: AlchemySpell = {
     requiredLevel: 21, 
@@ -91,6 +89,25 @@ const canActivate = (task: TaskExecutor<MagicOnItemAction>, taskIteration: numbe
         if (!hasRunes(player, spell.requiredItems, staffType)) {
             player.sendMessage("You do not have the required items for this spell.");
             return false;
+        }
+
+        if (actionData.item === 554 || actionData.item === 561) {
+            let spellCopy = _.cloneDeep(spell.requiredItems);
+            let newRequiredItems = spellCopy.map(item => {
+                if (item.itemId === actionData.item) {
+                    item.amount += 1;
+                }
+                return {
+                    ...item
+                };
+            })
+
+            player.sendMessage("Fire Runes " + newRequiredItems[0].amount + " Nature Runes " + newRequiredItems[1].amount);
+            
+            if (!hasRunes(player, newRequiredItems, staffType)) {
+                player.sendMessage("You do not have the required items for this spell.");
+                return false;
+            }
         }
         
         if (actionData.item === 995) {
