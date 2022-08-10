@@ -1,11 +1,6 @@
-// Low level alchemy info
-// Animation = 712
-// GFX = 112
-// Sound Effect = 98
-
 import { TaskExecutor } from "@engine/action/hook/task";
 import { MagicOnItemAction, MagicOnItemActionHook } from "@engine/action/pipe/magic-on-item.action";
-import { findItem, widgets } from "@engine/config/config-handler";
+import { findItem } from "@engine/config/config-handler";
 import { Skill } from "@engine/world/actor/skills";
 import { Item } from "@engine/world/items/item";
 import _ from "lodash";
@@ -128,11 +123,11 @@ const activate = (task: TaskExecutor<MagicOnItemAction>, taskIteration: number):
         player.inventory.add({itemId: 995, amount: amountOfCoins});
     }
 
-    if (taskIteration === 3 && spell === LOW_LEVEL_ALCHEMY) {
+    if (taskIteration === 2 && spell === LOW_LEVEL_ALCHEMY) {
         return false;
     }
 
-    if (taskIteration === 5) {
+    if (taskIteration === 4) {
         return false;
     }
 
@@ -145,7 +140,7 @@ export default {
         {
             type: "magic_on_item",
             widgetId: 192,
-            spellId: [10, 26],
+            spellIds: [10, 26],
             task: {
                 canActivate,
                 activate,

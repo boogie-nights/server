@@ -1,6 +1,5 @@
 import { Player } from "@engine/world/actor";
-import { ActionPipe, RunnableHooks, ActionHook, getActionHooks, advancedNumberHookFilter } from '@engine/action';
-import { ItemDetails } from "@engine/config";
+import { ActionPipe, RunnableHooks, ActionHook, getActionHooks, advancedNumberHookFilter, numberHookFilter } from '@engine/action';
 
 
 export interface MagicOnItemActionHook extends ActionHook<MagicOnItemAction, magicOnItemActionHandler> {
@@ -21,9 +20,10 @@ export interface MagicOnItemAction {
 
 const magicOnItemActionPipe = (player: Player, item: number, widgetId: number, spellId: number): RunnableHooks<MagicOnItemAction> => {
 
-    const matchingHooks = getActionHooks<MagicOnItemActionHook>('magic_on_item');
+    const matchingHooks = getActionHooks<MagicOnItemActionHook>('magic_on_item')   
+        .filter(plugin => numberHookFilter(plugin.spellIds, spellId));
     
-    if(matchingHooks.length === 0) {
+    if(!matchingHooks || matchingHooks.length === 0) {
         player.outgoingPackets.chatboxMessage(`Unhandled spell: ${widgetId}:${spellId}`);
         return null;
     }
