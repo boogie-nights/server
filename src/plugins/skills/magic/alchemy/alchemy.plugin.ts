@@ -6,19 +6,10 @@
 import { TaskExecutor } from "@engine/action/hook/task";
 import { MagicOnItemAction, MagicOnItemActionHook } from "@engine/action/pipe/magic-on-item.action";
 import { findItem, widgets } from "@engine/config/config-handler";
-import { ItemDetails } from "@engine/config/item-config";
 import { Skill } from "@engine/world/actor/skills";
 import { Item } from "@engine/world/items/item";
-import { action } from "@plugins/dialogue/dialogue-option.plugin";
 import _ from "lodash";
 import { checkForStaff, hasRunes, removeRunes } from "../magic-util";
-
-// Low level alchemy info
-// Animation = 713
-// GFX = 113
-// Sound Effect = 97
-
-// when trying to alch gold = "Coins are already made of gold."
 
 interface AlchemySpell {
     requiredLevel: number;
@@ -41,7 +32,7 @@ const LOW_LEVEL_ALCHEMY: AlchemySpell = {
     soundEffectId: 98
 }
 
-const HIGH_LEVEL_ALCHEMY = {
+const HIGH_LEVEL_ALCHEMY: AlchemySpell = {
     requiredLevel: 55, 
     requiredItems: [
         { itemId: 554, amount: 5 },
@@ -52,8 +43,6 @@ const HIGH_LEVEL_ALCHEMY = {
     animationId: 713,
     soundEffectId: 97
 }
-
-const bones = [ 526 ];
 
 const getSpell = (buttonId) => {
     switch(buttonId) {
@@ -101,8 +90,6 @@ const canActivate = (task: TaskExecutor<MagicOnItemAction>, taskIteration: numbe
                     ...item
                 };
             })
-
-            player.sendMessage("Fire Runes " + newRequiredItems[0].amount + " Nature Runes " + newRequiredItems[1].amount);
             
             if (!hasRunes(player, newRequiredItems, staffType)) {
                 player.sendMessage("You do not have the required items for this spell.");
