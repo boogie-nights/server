@@ -3,11 +3,8 @@ import { MagicOnItemAction, MagicOnItemActionHook } from "@engine/action/pipe/ma
 import { Skill } from "@engine/world/actor/skills";
 import _ from "lodash";
 import { checkForStaff, hasRunes, removeRunes } from "../magic-util";
-import { DIAMOND_ENCHANTMENT, DRAGONSTONE_ENCHANTMENT, EMERALD_ENCHANTMENT, getSpell, isRing, jewelryConversionData, ONYX_ENCHANTMENT, rings, RUBY_ENCHANTMENT, SAPPHIRE_ENCHANTMENT, validEnchantments } from "./jewelry-enchantment-constants";
+import { getSpell, isRing, jewelryConversionData, validEnchantments } from "./jewelry-enchantment-constants";
 import { EnchantmentSpell, SpellTypeData } from "./jewelry-enchantment-types";
-
-
-
 
 const canActivate = (task: TaskExecutor<MagicOnItemAction>, taskIteration: number): boolean => {
     const { player, actionData } = task.getDetails();
