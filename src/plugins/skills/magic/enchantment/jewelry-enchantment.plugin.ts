@@ -1,7 +1,6 @@
 import { TaskExecutor } from "@engine/action/hook/task";
 import { MagicOnItemAction, MagicOnItemActionHook } from "@engine/action/pipe/magic-on-item.action";
 import { Skill } from "@engine/world/actor/skills";
-import _ from "lodash";
 import { checkForStaff, hasRunes, removeRunes } from "../magic-util";
 import { getSpell, isRing, jewelryConversionData, validEnchantments } from "./jewelry-enchantment-constants";
 import { EnchantmentSpell, SpellTypeData } from "./jewelry-enchantment-types";
