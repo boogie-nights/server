@@ -40,7 +40,7 @@ const canActivate = (task: TaskExecutor<MagicOnItemAction>, taskIteration: numbe
             validEnchantments.forEach((enchantmentType, idx) => {
                 enchantmentType.some(item => {
                     if ( item === actionData.item) {
-                        player.sendMessage(`You can only enchant this jewelry using a level-${idx + 1} enchantment spell!`);
+                        player.sendMessage(`You can only enchant this jewelry using a level-${idx + 1} enchantment spell.`);
                         wasJewelryItem = true;
                     }
                 });
