@@ -32,8 +32,23 @@ const canActivate = (task: TaskExecutor<MagicOnItemAction>, taskIteration: numbe
             return false;
         }
 
+        // TODO: need to actually say what kind of thing you're trying to enchant. if It's not an item we can enchant be like nope!
         if (!validEnchantments.get(spell.enchantmentType).some(item => item === actionData.item)) {
-            player.sendMessage(`You can only enchant this jewelry using a level- ${spell.enchantmentType} enchantment spell!.`);
+
+            let wasJewelryItem: boolean = false;
+
+            validEnchantments.forEach((enchantmentType, idx) => {
+                enchantmentType.some(item => {
+                    if ( item === actionData.item) {
+                        player.sendMessage(`You can only enchant this jewelry using a level-${idx + 1} enchantment spell!`);
+                        wasJewelryItem = true;
+                    }
+                });
+            });       
+            
+            if (!wasJewelryItem) {
+                player.sendMessage("You cannot enchant this item.");
+            }
             return false;
         }
 
@@ -53,8 +68,6 @@ const activate = (task: TaskExecutor<MagicOnItemAction>, taskIteration: number):
     if (taskIteration === 0) {
 
         let animationSet: SpellTypeData = isRing(actionData.item) ? spell.ringData : spell.amuletData;
-        player.sendMessage("Item Id: " + actionData.item + " isRing " + isRing(actionData.item))
-
         removeRunes(player, spell.requiredItems, staffType);
         player.skills.addExp(Skill.MAGIC, spell.experience);
         player.playAnimation(animationSet.animationId);
@@ -70,7 +83,6 @@ const activate = (task: TaskExecutor<MagicOnItemAction>, taskIteration: number):
     if (taskIteration === 2) {
         return false;
     }
-
     return true;
 }
 
