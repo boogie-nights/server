@@ -436,7 +436,7 @@ const ICE_PLATEAU: Teleport = {
 
 export const MODERN_SPELLBOOK: SpellBook = {
     widgetId: 192,
-    teleportGraphicId: 111,
+    teleportGraphicId: { id: 111, height: 90 },
     teleportAnimationId: 714,
     teleportSoundEffectId: 200,
     teleportButtonIds: new Map<number, Teleport>([

@@ -32,7 +32,6 @@ const canActivate = (task: TaskExecutor<MagicOnItemAction>, taskIteration: numbe
             return false;
         }
 
-        // TODO: need to actually say what kind of thing you're trying to enchant. if It's not an item we can enchant be like nope!
         if (!validEnchantments.get(spell.enchantmentType).some(item => item === actionData.item)) {
 
             let wasJewelryItem: boolean = false;
