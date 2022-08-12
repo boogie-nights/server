@@ -13,7 +13,7 @@ const magicOnItemPacket = (player: Player, packet: PacketData) => {
 
     const spellId = interfaceSet & 0x0000FFFF;
 
-    player.sendMessage("Magic On Item " + spellbookWidgetId + " " + spellId + " " + inventoryWidgetId  + " " + itemId + " " + itemSlot);
+    //player.sendMessage("Magic On Item " + spellbookWidgetId + " " + spellId + " " + inventoryWidgetId  + " " + itemId + " " + itemSlot);
 
     if(itemSlot < 0) {
         return;
