@@ -209,8 +209,8 @@ const determineBar = (player: Player, itemId: number): BarData => {
 const hasRequiredOres = (player: Player, barData: BarData): boolean => {
     let hasAllItems = true;
     barData.requiredItems.forEach(item => {
-        let itemIndex = player.inventory.findItemIndex(item);
-        if (itemIndex === -1 || player.inventory.amount(item.itemId) !== item.amount) {
+        let itemIndex = player.inventory.findIndex(item);
+        if (itemIndex === -1 || player.inventory.amount(item.itemId) < item.amount) {
             hasAllItems = false;
         }       
     });
@@ -223,20 +223,31 @@ const convertOnesToWords = (num: number) => {
     else return ones[num];
 }
 
+const GOLD_SMITHING_GAUNTLETS = 776;
+
+const calculateSmithingExp = (player: Player, bar: BarData): number => {
+    return player.isItemEquipped(GOLD_SMITHING_GAUNTLETS) && bar === GOLD_BAR ? bar.experience * 2 : bar.experience; 
+}
+
 const activate = (task: TaskExecutor<MagicOnItemAction>, taskIteration: number): boolean => {
     const { player } = task.getDetails();
 
     const spell = task.session.spell;
     const staffType = task.session.staffType;
+    const barToSmelt: BarData = task.session.barToSmelt;
 
     if (taskIteration === 0) {
         removeRunes(player, spell.requiredItems, staffType);
         player.skills.addExp(Skill.MAGIC, spell.experience);
+        player.skills.addExp(Skill.SMITHING, calculateSmithingExp(player, barToSmelt));
         player.playAnimation(725);
         player.playGraphics({ id: 148, height: 90 });
         player.playSound(190);
 
         player.outgoingPackets.sendSwitchTab(6);
+
+        barToSmelt.requiredItems.forEach(item => player.inventory.removeMany(item.itemId, item.amount));
+        player.inventory.add(barToSmelt.output);
     }
 
     if (taskIteration === 1) {
