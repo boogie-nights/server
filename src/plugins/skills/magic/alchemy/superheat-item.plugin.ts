@@ -54,6 +54,15 @@ const BRONZE_BAR: BarData = {
     output: 2349
 };
 
+const BLURITE_BAR: BarData = {
+    requiredLevel: 13,
+    experience: 8,
+    requiredItems: [
+        { itemId: 668, amount: 1 }
+    ],
+    output: 9467
+};
+
 const IRON_BAR: BarData = {
     requiredLevel: 15,
     experience: 12.5,
@@ -91,6 +100,15 @@ const GOLD_BAR: BarData = {
     output: 2357
 };
 
+const PERFECT_GOLD_BAR: BarData = {
+    requiredLevel: 40,
+    experience: 22.5,
+    requiredItems: [
+        { itemId: 446, amount: 1 }
+    ],
+    output: 2365
+};
+
 const MITHRIL_BAR: BarData = {
     requiredLevel: 50,
     experience: 30,
@@ -124,9 +142,11 @@ const RUNE_BAR: BarData = {
 const bars = new Map<number, BarData>([
     [436, BRONZE_BAR],
     [440, IRON_BAR],
+    [668, BLURITE_BAR],
     [442, SILVER_BAR],
     [440, STEEL_BAR],
     [444, GOLD_BAR],
+    [444, PERFECT_GOLD_BAR],
     [447, MITHRIL_BAR],
     [449, ADAMANT_BAR],
     [451, RUNE_BAR],
@@ -158,6 +178,11 @@ const canActivate = (task: TaskExecutor<MagicOnItemAction>, taskIteration: numbe
 
         if (!hasRunes(player, spell.requiredItems, staffType)) {
             player.sendMessage("You do not have the required items for this spell.");
+            return false;
+        }
+
+        if (actionData.item === 2892) {
+            player.sendMessage("Even this spell is not hot enough to heat this item.");
             return false;
         }
 
@@ -226,7 +251,7 @@ const convertOnesToWords = (num: number) => {
 const GOLD_SMITHING_GAUNTLETS = 776;
 
 const calculateSmithingExp = (player: Player, bar: BarData): number => {
-    return player.isItemEquipped(GOLD_SMITHING_GAUNTLETS) && bar === GOLD_BAR ? bar.experience * 2 : bar.experience; 
+    return player.isItemEquipped(GOLD_SMITHING_GAUNTLETS) && (bar === GOLD_BAR || bar === PERFECT_GOLD_BAR) ? bar.experience * 2 : bar.experience; 
 }
 
 const activate = (task: TaskExecutor<MagicOnItemAction>, taskIteration: number): boolean => {
