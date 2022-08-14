@@ -5,29 +5,27 @@ import { Skill } from "@engine/world/actor/skills";
 import { Item } from "@engine/world/items/item";
 import { checkForStaff, hasRunes, removeRunes } from "../magic-util";
 
-// Animation 725, Graphic 148, Sound Effect 190
-// trying to cast on not ores = "You need to cast superheat item on ore." plays gfx 85 and sound 191
-// trying to cast on elemental ore = "Even this spell is not hot enough to heat this item."
-// unique error messages per item
-// You need one copper ore and one tin ore to make bronze.
-// You need four heaps of coal to smelt mithril.
-// Level error message triggers first then missing ores-> You need a smithing level of at least 70 to smelt adamantite.
-
-
-
-interface AlchemySpell {
+interface SuperheatSpellData {
     requiredLevel: number;
     requiredItems: Item[];
     experience: number;
+    successGraphicId: number;
+    failureGraphicId: number;
+    animationId: number;
+    soundId: number;
 }
 
-const SUPERHEAT_ITEM: AlchemySpell = {
+const SUPERHEAT_ITEM: SuperheatSpellData = {
     requiredLevel: 43, 
     requiredItems: [
         { itemId: 554, amount: 4 },
         { itemId: 561, amount: 1 }
     ],
     experience: 53,
+    successGraphicId: 148,
+    failureGraphicId: 85,
+    animationId: 725,
+    soundId: 190
 }
 
 const getSpell = (buttonId) => {
@@ -140,11 +138,8 @@ const RUNE_BAR: BarData = {
 };
 
 const bars = new Map<number, BarData>([
-    [436, BRONZE_BAR],
-    [440, IRON_BAR],
     [668, BLURITE_BAR],
     [442, SILVER_BAR],
-    [440, STEEL_BAR],
     [444, GOLD_BAR],
     [444, PERFECT_GOLD_BAR],
     [447, MITHRIL_BAR],
@@ -152,12 +147,36 @@ const bars = new Map<number, BarData>([
     [451, RUNE_BAR],
 ]);
 
+const GOLD_SMITHING_GAUNTLETS = 776;
+
 const ores: number[] = [ 436, 438, 440, 442, 444, 447, 449, 451, 668, 446 ];
+
+const ones = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+
+const hasRequiredOres = (player: Player, barData: BarData): boolean => {
+    let hasAllItems = true;
+    barData.requiredItems.forEach(item => {
+        let itemIndex = player.inventory.findIndex(item);
+        if (itemIndex === -1 || player.inventory.amount(item.itemId) < item.amount) {
+            hasAllItems = false;
+        }       
+    });
+    return hasAllItems;
+}
+
+const convertOnesToWords = (num: number) => {
+    if (num === 0) return "zero";
+    else return ones[num];
+}
+
+const calculateSmithingExp = (player: Player, bar: BarData): number => {
+    return player.isItemEquipped(GOLD_SMITHING_GAUNTLETS) && (bar === GOLD_BAR || bar === PERFECT_GOLD_BAR) ? bar.experience * 2 : bar.experience; 
+}
 
 const canActivate = (task: TaskExecutor<MagicOnItemAction>, taskIteration: number): boolean => {
     const { player, actionData } = task.getDetails();
 
-    const spell = getSpell(actionData.spellId);
+    const spell: SuperheatSpellData = getSpell(actionData.spellId);
     
     task.session.spell = spell;
 
@@ -188,7 +207,7 @@ const canActivate = (task: TaskExecutor<MagicOnItemAction>, taskIteration: numbe
 
         if (!ores.some(item => item === actionData.item)) {
             player.sendMessage("You need to cast superheat item on ore.");
-            player.playGraphics({ id: 85, height: 90 });
+            player.playGraphics({ id: spell.failureGraphicId, height: 90 });
             player.playSound(191);
             return false;
         }
@@ -212,7 +231,6 @@ const canActivate = (task: TaskExecutor<MagicOnItemAction>, taskIteration: numbe
             }
             return false;
         }
-
     }
     return true;
 }
@@ -231,33 +249,10 @@ const determineBar = (player: Player, itemId: number): BarData => {
     }
 }
 
-const hasRequiredOres = (player: Player, barData: BarData): boolean => {
-    let hasAllItems = true;
-    barData.requiredItems.forEach(item => {
-        let itemIndex = player.inventory.findIndex(item);
-        if (itemIndex === -1 || player.inventory.amount(item.itemId) < item.amount) {
-            hasAllItems = false;
-        }       
-    });
-    return hasAllItems;
-}
-
-const ones = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
-const convertOnesToWords = (num: number) => {
-    if (num === 0) return "zero";
-    else return ones[num];
-}
-
-const GOLD_SMITHING_GAUNTLETS = 776;
-
-const calculateSmithingExp = (player: Player, bar: BarData): number => {
-    return player.isItemEquipped(GOLD_SMITHING_GAUNTLETS) && (bar === GOLD_BAR || bar === PERFECT_GOLD_BAR) ? bar.experience * 2 : bar.experience; 
-}
-
 const activate = (task: TaskExecutor<MagicOnItemAction>, taskIteration: number): boolean => {
     const { player } = task.getDetails();
 
-    const spell = task.session.spell;
+    const spell: SuperheatSpellData = task.session.spell;
     const staffType = task.session.staffType;
     const barToSmelt: BarData = task.session.barToSmelt;
 
@@ -265,9 +260,9 @@ const activate = (task: TaskExecutor<MagicOnItemAction>, taskIteration: number):
         removeRunes(player, spell.requiredItems, staffType);
         player.skills.addExp(Skill.MAGIC, spell.experience);
         player.skills.addExp(Skill.SMITHING, calculateSmithingExp(player, barToSmelt));
-        player.playAnimation(725);
-        player.playGraphics({ id: 148, height: 90 });
-        player.playSound(190);
+        player.playAnimation(spell.animationId);
+        player.playGraphics({ id: spell.successGraphicId, height: 90 });
+        player.playSound(spell.soundId);
 
         player.outgoingPackets.sendSwitchTab(6);
 
@@ -276,7 +271,6 @@ const activate = (task: TaskExecutor<MagicOnItemAction>, taskIteration: number):
     }
 
     if (taskIteration === 1) {
-      
         return false;
     }
     return true;
