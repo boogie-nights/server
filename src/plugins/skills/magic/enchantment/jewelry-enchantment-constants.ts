@@ -1,3 +1,4 @@
+import { AIR_RUNE, COSMIC_RUNE, EARTH_RUNE, FIRE_RUNE, WATER_RUNE } from "../magic-util";
 import { EnchantmentSpell } from "./jewelry-enchantment-types";
 
 export enum EnchantmentType {
@@ -64,8 +65,8 @@ export const isRing = (itemId: number): boolean => rings.some(item => item === i
 export const SAPPHIRE_ENCHANTMENT: EnchantmentSpell = {
     requiredLevel: 7, 
     requiredItems: [
-        { itemId: 555, amount: 1 },
-        { itemId: 564, amount: 1 },
+        { itemId: WATER_RUNE.gameId, amount: 1 },
+        { itemId: COSMIC_RUNE.gameId, amount: 1 },
     ],
     experience: 17.5,
     enchantmentType: EnchantmentType.SAPPHIRE,
@@ -84,8 +85,8 @@ export const SAPPHIRE_ENCHANTMENT: EnchantmentSpell = {
 export const EMERALD_ENCHANTMENT: EnchantmentSpell = {
     requiredLevel: 27, 
     requiredItems: [
-        { itemId: 556, amount: 3 },
-        { itemId: 564, amount: 1 },
+        { itemId: AIR_RUNE.gameId, amount: 3 },
+        { itemId: COSMIC_RUNE.gameId, amount: 1 },
     ],
     experience: 37,
     enchantmentType: EnchantmentType.EMERALD,
@@ -104,8 +105,8 @@ export const EMERALD_ENCHANTMENT: EnchantmentSpell = {
 export const RUBY_ENCHANTMENT: EnchantmentSpell = {
     requiredLevel: 49, 
     requiredItems: [
-        { itemId: 554, amount: 5 },
-        { itemId: 564, amount: 1 },
+        { itemId: FIRE_RUNE.gameId, amount: 5 },
+        { itemId: COSMIC_RUNE.gameId, amount: 1 },
     ],
     experience: 59,
     enchantmentType: EnchantmentType.RUBY,
@@ -124,8 +125,8 @@ export const RUBY_ENCHANTMENT: EnchantmentSpell = {
 export const DIAMOND_ENCHANTMENT: EnchantmentSpell = {
     requiredLevel: 57, 
     requiredItems: [
-        { itemId: 557, amount: 10 },
-        { itemId: 564, amount: 1 },
+        { itemId: EARTH_RUNE.gameId, amount: 10 },
+        { itemId: COSMIC_RUNE.gameId, amount: 1 },
     ],
     experience: 67,
     enchantmentType: EnchantmentType.DIAMOND,
@@ -144,9 +145,9 @@ export const DIAMOND_ENCHANTMENT: EnchantmentSpell = {
 export const DRAGONSTONE_ENCHANTMENT: EnchantmentSpell = {
     requiredLevel: 68, 
     requiredItems: [
-        { itemId: 555, amount: 15 },
-        { itemId: 557, amount: 15 },
-        { itemId: 564, amount: 1 },
+        { itemId: WATER_RUNE.gameId, amount: 15 },
+        { itemId: EARTH_RUNE.gameId, amount: 15 },
+        { itemId: COSMIC_RUNE.gameId, amount: 1 },
     ],
     experience: 78,
     enchantmentType: EnchantmentType.DRAGONSTONE,
@@ -165,9 +166,9 @@ export const DRAGONSTONE_ENCHANTMENT: EnchantmentSpell = {
 export const ONYX_ENCHANTMENT: EnchantmentSpell = {
     requiredLevel: 87, 
     requiredItems: [
-        { itemId: 554, amount: 20 },
-        { itemId: 557, amount: 20 },
-        { itemId: 564, amount: 1 },
+        { itemId: FIRE_RUNE.gameId, amount: 20 },
+        { itemId: EARTH_RUNE.gameId, amount: 20 },
+        { itemId: COSMIC_RUNE.gameId, amount: 1 },
     ],
     experience: 97,
     enchantmentType: EnchantmentType.ONYX,

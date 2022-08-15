@@ -1,7 +1,8 @@
 import { ButtonAction, ButtonActionHook, TaskExecutor } from "@engine/action";
 import { Skill } from "@engine/world/actor/skills";
 import { Item } from "@engine/world/items/item";
-import { checkForStaff, hasRunes, removeRunes } from "../magic-util";
+import { checkForStaff, EARTH_RUNE, hasRunes, NATURE_RUNE, removeRunes, WATER_RUNE } from "../magic-util";
+import { MODERN_SPELLBOOK } from "../teleportation/teleportation-constants";
 
 // Bones to Bananas Data
 // No bones? -> Chatbox message "You aren't holding any bones!"
@@ -28,9 +29,9 @@ const PEACH = 6883;
 const BONES_TO_BANANAS: AlchemySpell = {
     requiredLevel: 15, 
     requiredItems: [
-        { itemId: 557, amount: 2 },
-        { itemId: 555, amount: 2 },
-        { itemId: 561, amount: 1 },
+        { itemId: EARTH_RUNE.gameId, amount: 2 },
+        { itemId: WATER_RUNE.gameId, amount: 2 },
+        { itemId: NATURE_RUNE.gameId, amount: 1 },
     ],
     experience: 25,
     output: BANANA
@@ -39,9 +40,9 @@ const BONES_TO_BANANAS: AlchemySpell = {
 const BONES_TO_PEACHES = {
     requiredLevel: 60, 
     requiredItems: [
-        { itemId: 557, amount: 4 },
-        { itemId: 555, amount: 4 },
-        { itemId: 561, amount: 2 },
+        { itemId: EARTH_RUNE.gameId, amount: 4 },
+        { itemId: WATER_RUNE.gameId, amount: 4 },
+        { itemId: NATURE_RUNE.gameId, amount: 2 },
     ],
     experience: 25,
     output: PEACH
@@ -131,7 +132,7 @@ export default {
     hooks: [
         {
             type: "button",
-            widgetId: 192,
+            widgetId: MODERN_SPELLBOOK.widgetId,
             buttonIds: [7, 559],
             task: {
                 canActivate,

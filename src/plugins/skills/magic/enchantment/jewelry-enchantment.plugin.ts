@@ -2,6 +2,7 @@ import { TaskExecutor } from "@engine/action/hook/task";
 import { MagicOnItemAction, MagicOnItemActionHook } from "@engine/action/pipe/magic-on-item.action";
 import { Skill } from "@engine/world/actor/skills";
 import { checkForStaff, hasRunes, removeRunes } from "../magic-util";
+import { MODERN_SPELLBOOK } from "../teleportation/teleportation-constants";
 import { getSpell, isRing, jewelryConversionData, validEnchantments } from "./jewelry-enchantment-constants";
 import { EnchantmentSpell, SpellTypeData } from "./jewelry-enchantment-types";
 
@@ -90,7 +91,7 @@ export default {
     hooks: [
         {
             type: "magic_on_item",
-            widgetId: 192,
+            widgetId: MODERN_SPELLBOOK.widgetId,
             spellIds: [3, 13, 24, 28, 35, 549],
             task: {
                 canActivate,

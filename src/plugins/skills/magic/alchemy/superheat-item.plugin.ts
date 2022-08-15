@@ -3,7 +3,8 @@ import { findItem } from "@engine/config";
 import { Player } from "@engine/world/actor/player/player";
 import { Skill } from "@engine/world/actor/skills";
 import { Item } from "@engine/world/items/item";
-import { checkForStaff, hasRunes, removeRunes } from "../magic-util";
+import { checkForStaff, FIRE_RUNE, hasRunes, NATURE_RUNE, removeRunes } from "../magic-util";
+import { MODERN_SPELLBOOK } from "../teleportation/teleportation-constants";
 
 interface SuperheatSpellData {
     requiredLevel: number;
@@ -18,8 +19,8 @@ interface SuperheatSpellData {
 const SUPERHEAT_ITEM: SuperheatSpellData = {
     requiredLevel: 43, 
     requiredItems: [
-        { itemId: 554, amount: 4 },
-        { itemId: 561, amount: 1 }
+        { itemId: FIRE_RUNE.gameId, amount: 4 },
+        { itemId: NATURE_RUNE.gameId, amount: 1 }
     ],
     experience: 53,
     successGraphicId: 148,
@@ -281,7 +282,7 @@ export default {
     hooks: [
         {
             type: "magic_on_item",
-            widgetId: 192,
+            widgetId: MODERN_SPELLBOOK.widgetId,
             spellIds: [21],
             task: {
                 canActivate,

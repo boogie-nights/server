@@ -1,12 +1,13 @@
+import { AIR_RUNE, ASTRAL_RUNE, BLOOD_RUNE, EARTH_RUNE, FIRE_RUNE, LAW_RUNE, WATER_RUNE } from "../magic-util";
 import { SpellBook, Teleport } from "./teleportation-types";
 
 // Modern Magics
 const VARROCK: Teleport = {
     requiredLevel: 25,
     requiredItems: [
-        { itemId: 556, amount: 3},
-        { itemId: 554, amount: 1},
-        { itemId: 563, amount: 1}
+        { itemId: AIR_RUNE.gameId, amount: 3},
+        { itemId: FIRE_RUNE.gameId, amount: 1},
+        { itemId: LAW_RUNE.gameId, amount: 1}
     ],
     experience: 35,
     boundary: [
@@ -22,9 +23,9 @@ const VARROCK: Teleport = {
 const LUMBRIDGE: Teleport = {
     requiredLevel: 31,
     requiredItems: [
-        { itemId: 556, amount: 3},
-        { itemId: 557, amount: 1},
-        { itemId: 563, amount: 1}
+        { itemId: AIR_RUNE.gameId, amount: 3},
+        { itemId: EARTH_RUNE.gameId, amount: 1},
+        { itemId: LAW_RUNE.gameId, amount: 1}
     ],
     experience: 41,
     boundary: [
@@ -46,9 +47,9 @@ const LUMBRIDGE: Teleport = {
 const FALADOR:  Teleport = {
     requiredLevel: 37,
     requiredItems: [
-        { itemId: 556, amount: 3},
-        { itemId: 555, amount: 1},
-        { itemId: 563, amount: 1}
+        { itemId: AIR_RUNE.gameId, amount: 3},
+        { itemId: WATER_RUNE.gameId, amount: 1},
+        { itemId: LAW_RUNE.gameId, amount: 1}
     ],
     experience: 47,
     boundary: [
@@ -64,8 +65,8 @@ const FALADOR:  Teleport = {
 const CAMELOT: Teleport = {
     requiredLevel: 45,
     requiredItems: [
-        { itemId: 556, amount: 5},
-        { itemId: 563, amount: 1}
+        { itemId: AIR_RUNE.gameId, amount: 5},
+        { itemId: LAW_RUNE.gameId, amount: 1}
     ],
     experience: 55.5,
     boundary: [
@@ -81,8 +82,8 @@ const CAMELOT: Teleport = {
 const ARDOUGNE: Teleport = {
     requiredLevel: 51,
     requiredItems: [
-        { itemId: 555, amount: 2},
-        { itemId: 563, amount: 2}
+        { itemId: WATER_RUNE.gameId, amount: 2},
+        { itemId: LAW_RUNE.gameId, amount: 2}
     ],
     experience: 61,
     boundary: [
@@ -102,8 +103,8 @@ const ARDOUGNE: Teleport = {
 const WATCHTOWER: Teleport = {
     requiredLevel: 58,
     requiredItems: [
-        { itemId: 557, amount: 2},
-        { itemId: 563, amount: 2}
+        { itemId: EARTH_RUNE.gameId, amount: 2},
+        { itemId: LAW_RUNE.gameId, amount: 2}
     ],
     experience: 68,
     boundary: [
@@ -124,8 +125,8 @@ const WATCHTOWER: Teleport = {
 const TROLLHEIM: Teleport = {
     requiredLevel: 61,
     requiredItems: [
-        { itemId: 554, amount: 2},
-        { itemId: 563, amount: 2}
+        { itemId: FIRE_RUNE.gameId, amount: 2},
+        { itemId: LAW_RUNE.gameId, amount: 2}
     ],
     experience: 68,
     boundary: [
@@ -145,9 +146,9 @@ const TROLLHEIM: Teleport = {
 const APE_ATOLL: Teleport = {
     requiredLevel: 64,
     requiredItems: [
-        { itemId: 554, amount: 2},
-        { itemId: 555, amount: 2},
-        { itemId: 563, amount: 2},
+        { itemId: FIRE_RUNE.gameId, amount: 2},
+        { itemId: WATER_RUNE.gameId, amount: 2},
+        { itemId: LAW_RUNE.gameId, amount: 2},
         { itemId: 1963, amount: 1}
     ],
     experience: 74,
@@ -170,9 +171,9 @@ const APE_ATOLL: Teleport = {
 const PADDEWWA: Teleport = {
     requiredLevel: 54,
     requiredItems: [
-        { itemId: 556, amount: 1},
-        { itemId: 554, amount: 1},
-        { itemId: 563, amount: 2}
+        { itemId: AIR_RUNE.gameId, amount: 1},
+        { itemId: FIRE_RUNE.gameId, amount: 1},
+        { itemId: LAW_RUNE.gameId, amount: 2}
     ],
     experience: 64,
     boundary: [
@@ -189,7 +190,7 @@ const SENNTISTEN: Teleport = {
     requiredLevel: 60,
     requiredItems: [
         { itemId: 566, amount: 1},
-        { itemId: 563, amount: 2}
+        { itemId: LAW_RUNE.gameId, amount: 2}
     ],
     experience: 70,
     boundary: [
@@ -205,8 +206,8 @@ const SENNTISTEN: Teleport = {
 const KHARYRLL: Teleport = {
     requiredLevel: 66,
     requiredItems: [
-        { itemId: 565, amount: 1},
-        { itemId: 563, amount: 2}
+        { itemId: BLOOD_RUNE.gameId, amount: 1},
+        { itemId: LAW_RUNE.gameId, amount: 2}
     ],
     experience: 76,
     boundary: [
@@ -222,8 +223,8 @@ const KHARYRLL: Teleport = {
 const LASSAR: Teleport = {
     requiredLevel: 72,
     requiredItems: [
-        { itemId: 555, amount: 4},
-        { itemId: 563, amount: 2}
+        { itemId: WATER_RUNE.gameId, amount: 4},
+        { itemId: LAW_RUNE.gameId, amount: 2}
     ],
     experience: 82,
     boundary: [
@@ -239,9 +240,9 @@ const LASSAR: Teleport = {
 const DAREEYAK: Teleport = {
     requiredLevel: 78,
     requiredItems: [
-        { itemId: 556, amount: 2},
-        { itemId: 554, amount: 3},
-        { itemId: 563, amount: 2}
+        { itemId: AIR_RUNE.gameId, amount: 2},
+        { itemId: FIRE_RUNE.gameId, amount: 3},
+        { itemId: LAW_RUNE.gameId, amount: 2}
     ],
     experience: 88,
     boundary: [
@@ -258,7 +259,7 @@ const CARRALLANGAR: Teleport = {
     requiredLevel: 84,
     requiredItems: [
         { itemId: 566, amount: 2},
-        { itemId: 563, amount: 2}
+        { itemId: LAW_RUNE.gameId, amount: 2}
     ],
     experience: 94,
     boundary: [
@@ -274,8 +275,8 @@ const CARRALLANGAR: Teleport = {
 const ANNAKARL: Teleport = {
     requiredLevel: 90,
     requiredItems: [
-        { itemId: 565, amount: 1},
-        { itemId: 563, amount: 1}
+        { itemId: BLOOD_RUNE.gameId, amount: 1},
+        { itemId: LAW_RUNE.gameId, amount: 1}
     ],
     experience: 100,
     boundary: [
@@ -291,8 +292,8 @@ const ANNAKARL: Teleport = {
 const GHORROCK: Teleport = {
     requiredLevel: 96,
     requiredItems: [
-        { itemId: 555, amount: 8},
-        { itemId: 563, amount: 2}
+        { itemId: WATER_RUNE.gameId, amount: 8},
+        { itemId: LAW_RUNE.gameId, amount: 2}
     ],
     experience: 106,
     boundary: [
@@ -310,9 +311,9 @@ const GHORROCK: Teleport = {
 const MOONCLAN: Teleport = {
     requiredLevel: 69,
     requiredItems: [
-        { itemId: 557, amount: 2},
-        { itemId: 9075, amount: 2},
-        { itemId: 563, amount: 1}
+        { itemId: EARTH_RUNE.gameId, amount: 2},
+        { itemId: ASTRAL_RUNE.gameId, amount: 2},
+        { itemId: LAW_RUNE.gameId, amount: 1}
     ],
     experience: 66,
     boundary: [
@@ -328,9 +329,9 @@ const MOONCLAN: Teleport = {
 const WATERBIRTH: Teleport = {
     requiredLevel: 72,
     requiredItems: [
-        { itemId: 555, amount: 1},
-        { itemId: 9075, amount: 2},
-        { itemId: 563, amount: 1}
+        { itemId: WATER_RUNE.gameId, amount: 1},
+        { itemId: ASTRAL_RUNE.gameId, amount: 2},
+        { itemId: LAW_RUNE.gameId, amount: 1}
     ],
     experience: 71,
     boundary: [
@@ -346,9 +347,9 @@ const WATERBIRTH: Teleport = {
 const BARBARIAN: Teleport = {
     requiredLevel: 75,
     requiredItems: [
-        { itemId: 554, amount: 3},
-        { itemId: 9075, amount: 2},
-        { itemId: 563, amount: 1}
+        { itemId: FIRE_RUNE.gameId, amount: 3},
+        { itemId: ASTRAL_RUNE.gameId, amount: 2},
+        { itemId: LAW_RUNE.gameId, amount: 1}
     ],
     experience: 76,
     boundary: [
@@ -364,9 +365,9 @@ const BARBARIAN: Teleport = {
 const KHAZARD: Teleport = {
     requiredLevel: 78,
     requiredItems: [
-        { itemId: 555, amount: 4},
-        { itemId: 9075, amount: 2},
-        { itemId: 563, amount: 2}
+        { itemId: WATER_RUNE.gameId, amount: 4},
+        { itemId: ASTRAL_RUNE.gameId, amount: 2},
+        { itemId: LAW_RUNE.gameId, amount: 2}
     ],
     experience: 80,
     boundary: [
@@ -382,9 +383,9 @@ const KHAZARD: Teleport = {
 const FISHING_GUILD: Teleport = {
     requiredLevel: 85,
     requiredItems: [
-        { itemId: 555, amount: 10},
-        { itemId: 9075, amount: 3},
-        { itemId: 563, amount: 3}
+        { itemId: WATER_RUNE.gameId, amount: 10},
+        { itemId: ASTRAL_RUNE.gameId, amount: 3},
+        { itemId: LAW_RUNE.gameId, amount: 3}
     ],
     experience: 89,
     boundary: [
@@ -401,9 +402,9 @@ const FISHING_GUILD: Teleport = {
 const CATHERBY: Teleport = {
     requiredLevel: 87,
     requiredItems: [
-        { itemId: 555, amount: 10},
-        { itemId: 9075, amount: 3},
-        { itemId: 563, amount: 3}
+        { itemId: WATER_RUNE.gameId, amount: 10},
+        { itemId: ASTRAL_RUNE.gameId, amount: 3},
+        { itemId: LAW_RUNE.gameId, amount: 3}
     ],
     experience: 92,
     boundary: [
@@ -419,9 +420,9 @@ const CATHERBY: Teleport = {
 const ICE_PLATEAU: Teleport = {
     requiredLevel: 89,
     requiredItems: [
-        { itemId: 555, amount: 8},
-        { itemId: 9075, amount: 3},
-        { itemId: 563, amount: 3}
+        { itemId: WATER_RUNE.gameId, amount: 8},
+        { itemId: ASTRAL_RUNE.gameId, amount: 3},
+        { itemId: LAW_RUNE.gameId, amount: 3}
     ],
     experience: 96,
     boundary: [

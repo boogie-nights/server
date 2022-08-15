@@ -28,6 +28,7 @@ export interface HookTask<T = any> {
     delayMs?: number; // # of milliseconds before execution
     interval?: number; // # of ticks between loop intervals (defaults to single run task)
     intervalMs?: number;  // # of milliseconds between loop intervals (defaults to single run task)
+    isCancellable?: boolean // whether or not the action must playout to completion before queueing up a new one
 }
 
 

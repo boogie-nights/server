@@ -1,5 +1,22 @@
+import { findItem, ItemDetails } from "@engine/config"
 import { Player } from "@engine/world/actor/player/player"
 import { Item } from "@engine/world/items/item"
+
+export const AIR_RUNE: ItemDetails = findItem(556);
+export const WATER_RUNE: ItemDetails = findItem(555);
+export const EARTH_RUNE: ItemDetails = findItem(557);
+export const FIRE_RUNE: ItemDetails = findItem(554);
+
+export const MIND_RUNE: ItemDetails = findItem(558);
+export const CHAOS_RUNE: ItemDetails = findItem(562)
+export const DEATH_RUNE: ItemDetails = findItem(560);
+export const BLOOD_RUNE: ItemDetails = findItem(565);
+
+export const BODY_RUNE: ItemDetails = findItem(559);
+export const COSMIC_RUNE: ItemDetails = findItem(564);
+export const NATURE_RUNE: ItemDetails = findItem(561);
+export const LAW_RUNE: ItemDetails = findItem(563);
+export const ASTRAL_RUNE: ItemDetails = findItem(9075);
 
 const airStaves: number[] = [
     1381, 1397, 1405
@@ -29,12 +46,12 @@ enum StaffType {
 
 const stavesToRunes = new Map<StaffType, number[]>([
     [StaffType.None, []],
-    [StaffType.Air, [556]],
-    [StaffType.Water, [555]],
-    [StaffType.Earth, [557]],
-    [StaffType.Fire, [554]],
-    [StaffType.EarthAndWater, [555, 557]],
-    [StaffType.EarthAndFire, [555, 554]]
+    [StaffType.Air, [AIR_RUNE.gameId]],
+    [StaffType.Water, [WATER_RUNE.gameId]],
+    [StaffType.Earth, [EARTH_RUNE.gameId]],
+    [StaffType.Fire, [FIRE_RUNE.gameId]],
+    [StaffType.EarthAndWater, [EARTH_RUNE.gameId, WATER_RUNE.gameId]],
+    [StaffType.EarthAndFire, [EARTH_RUNE.gameId, FIRE_RUNE.gameId]]
 ]);
 
 export const hasRunes = (player: Player, requiredItems: Item[], staffType: StaffType): boolean => {

@@ -4,7 +4,8 @@ import { findItem } from "@engine/config/config-handler";
 import { Skill } from "@engine/world/actor/skills";
 import { Item } from "@engine/world/items/item";
 import _ from "lodash";
-import { checkForStaff, hasRunes, removeRunes } from "../magic-util";
+import { checkForStaff, FIRE_RUNE, hasRunes, NATURE_RUNE, removeRunes } from "../magic-util";
+import { MODERN_SPELLBOOK } from "../teleportation/teleportation-constants";
 
 interface AlchemySpell {
     requiredLevel: number;
@@ -18,8 +19,8 @@ interface AlchemySpell {
 const LOW_LEVEL_ALCHEMY: AlchemySpell = {
     requiredLevel: 21, 
     requiredItems: [
-        { itemId: 554, amount: 3 },
-        { itemId: 561, amount: 1 },
+        { itemId: FIRE_RUNE.gameId, amount: 3 },
+        { itemId: NATURE_RUNE.gameId, amount: 1 },
     ],
     experience: 31,
     graphicId: 112,
@@ -30,8 +31,8 @@ const LOW_LEVEL_ALCHEMY: AlchemySpell = {
 const HIGH_LEVEL_ALCHEMY: AlchemySpell = {
     requiredLevel: 55, 
     requiredItems: [
-        { itemId: 554, amount: 5 },
-        { itemId: 561, amount: 1 },
+        { itemId: FIRE_RUNE.gameId, amount: 5 },
+        { itemId: NATURE_RUNE.gameId, amount: 1 },
     ],
     experience: 65,
     graphicId: 113,
@@ -75,7 +76,7 @@ const canActivate = (task: TaskExecutor<MagicOnItemAction>, taskIteration: numbe
             return false;
         }
 
-        if (actionData.item === 554 || actionData.item === 561) {
+        if (actionData.item === FIRE_RUNE.gameId || actionData.item === NATURE_RUNE.gameId) {
             let spellCopy = _.cloneDeep(spell.requiredItems);
             let newRequiredItems = spellCopy.map(item => {
                 if (item.itemId === actionData.item) {
@@ -139,7 +140,7 @@ export default {
     hooks: [
         {
             type: "magic_on_item",
-            widgetId: 192,
+            widgetId: MODERN_SPELLBOOK.widgetId,
             spellIds: [10, 26],
             task: {
                 canActivate,
